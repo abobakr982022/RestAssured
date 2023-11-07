@@ -1,6 +1,8 @@
 package RestAssured;
 
+import Functions.ReturnBody;
 import io.restassured.RestAssured;
+import io.restassured.path.json.JsonPath;
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.Matchers;
 
@@ -13,25 +15,28 @@ public class AssertionOfResponse {
         //when : submit API
         //then : validate on response
         RestAssured.baseURI="https://rahulshettyacademy.com";
-        given().log().all().queryParam("key ","qaclick123").header("Content-Type","application/json")
-                .body("{\n" +
-                        "  \"location\": {\n" +
-                        "    \"lat\": -38.383494,\n" +
-                        "    \"lng\": 33.427362\n" +
-                        "  },\n" +
-                        "  \"accuracy\": 50,\n" +
-                        "  \"name\": \"Frontline house\",\n" +
-                        "  \"phone_number\": \"(+91) 983 893 3937\",\n" +
-                        "  \"address\": \"29, side layout, cohen 09\",\n" +
-                        "  \"types\": [\n" +
-                        "    \"shoe park\",\n" +
-                        "    \"shop\"\n" +
-                        "  ],\n" +
-                        "  \"website\": \"http://google.com\",\n" +
-                        "  \"language\": \"French-IN\"\n" +
-                        "}\n")
+       String Response = given().log().all().queryParam("key ","qaclick123").header("Content-Type","application/json")
+                .body(ReturnBody.PostBodyContent())
                 .when().post("/maps/api/place/add/json")
-                .then().log().all().assertThat().body("scope", Matchers.equalTo("APP"))
-                .header("Server","Apache/2.4.52 (Ubuntu)");
+                .then().assertThat().body("scope", Matchers.equalTo("APP"))
+                .header("Server","Apache/2.4.52 (Ubuntu)").extract().response().asString();
+
+       System.out.println("res: "+Response);
+        JsonPath jsonPath = new JsonPath(Response);
+        String place_id =jsonPath.getString("place_id");
+        System.out.println("place_id: "+place_id);
+
+
+         String putRes =given().log().all().queryParam("key ","qaclick123").header("Content-Type","application/json")
+                .body(ReturnBody.PutBodyContent())
+                .when().put("/maps/api/place/update/json")
+                .then().assertThat().statusCode(404)
+                .header("Server","Apache/2.4.52 (Ubuntu)").extract().response().asString();
+         System.out.println("PUT :" +putRes);
+         JsonPath jsonPath1 = new JsonPath(putRes);
+         String address = jsonPath1.getString("address");
+         System.out.println("address : " + address);
+
+
     }
 }
