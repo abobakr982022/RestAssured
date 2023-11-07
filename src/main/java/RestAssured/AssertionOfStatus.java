@@ -2,7 +2,7 @@ package RestAssured;
 
 import io.restassured.RestAssured;
 import static io.restassured.RestAssured.*;
-public class Main {
+public class AssertionOfStatus {
     public static void main(String[] args) {
 
         //given : all input data
@@ -27,6 +27,6 @@ public class Main {
                         "  \"language\": \"French-IN\"\n" +
                         "}\n")
                 .when().post("/maps/api/place/add/json")
-                .then().log().all().assertThat().statusCode(209);
+                .then().log().all().assertThat().statusCode(200);
     }
 }
