@@ -54,11 +54,11 @@ public class ReturnBody {
                 "}";
     }
 
-    public static String LibBody(){
+    public static String LibBody(String isbn ,String aisle){
         return "{\n" +
                 "            \"name\":\"Learn Appium Automation with Java\",\n" +
-                "            \"isbn\":\"bcd\",\n" +
-                "            \"aisle\":\"227\",\n" +
+                "            \"isbn\":\""+isbn+"\",\n" +
+                "            \"aisle\":\""+aisle+"\",\n" +
                 "            \"author\":\"John foe\"\n" +
                 "    }";
 
