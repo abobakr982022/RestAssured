@@ -63,6 +63,28 @@ public class ReturnBody {
                 "    }";
 
     }
+    public static String AuthLogin(){
+        return "{\n" +
+                "  \"username\": \"abobakrahmed\",\n" +
+                "  \"password\": \"Abubakr@12345\"\n" +
+                "}";
+    }
+    public static String issue(){
+        return "{\n" +
+                "   \n" +
+                "    \"fields\": {\n" +
+                "        \"project\": {\n" +
+                "            \"id\": \"10000\",\n" +
+                "            \"key\":\"Bug\"\n" +
+                "        },\n" +
+                "        \"summary\": \"issue\",\n" +
+                "        \"issuetype\": {\n" +
+                "            \"name\": \"Bug\"\n" +
+                "        }\n" +
+                "      \n" +
+                "    }\n" +
+                "}";
+    }
 
 
 

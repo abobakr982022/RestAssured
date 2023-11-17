@@ -29,7 +29,8 @@ public class LibAPI {
     @Test
     public void AddBook2() throws IOException {
         baseURI="http://216.10.245.166";
-        String ResLib = given().log().all().body(new String(Files.readAllBytes(Paths.get(System.getProperty("user.dir")+"/src/main/java/new 3.json")))).when().post("/Library/Addbook.php")
+        String ResLib = given().log().all().body(new String(Files.readAllBytes(Paths.get(System.getProperty("user.dir")+"/src/main/java/new 3.json"))))
+                .when().post("/Library/Addbook.php")
                 .then().log().all().assertThat().statusCode(200).extract().response().asString();
         System.out.println("res " + ResLib);
         String Msg = RawToJSON.RawToJson(ResLib).getString("Msg");
